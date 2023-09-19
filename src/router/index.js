@@ -6,28 +6,28 @@ const router = createRouter({
     { path: '/login', component: () => import('@/views/login/LoginPage.vue') },
     {
       path: '/',
-      component: () => import('@/view/layout/LayoutContainer.vue'),
+      component: () => import('@/views/layout/layoutContainer.vue'),
       redirect: '/article/manage',
       children: [
         {
           path: '/article/manage',
-          component: () => import('@/views/article/ArticleManage')
+          component: () => import('@/views/article/ArticleManage.vue')
         },
         {
           path: '/article/Channel',
-          component: () => import('@/views/article/ArticleChannel')
+          component: () => import('@/views/article/ArticleChannel.vue')
         },
         {
           path: '/user/profile',
-          component: () => import('@/views/user/UserProfile')
+          component: () => import('@/views/user/UserProfile.vue')
         },
         {
           path: '/user/avatar',
-          component: () => import('@/views/user/UserAvatar')
+          component: () => import('@/views/user/UserAvatar.vue')
         },
         {
           path: '/user/password',
-          component: () => import('@/views/user/UserPassword')
+          component: () => import('@/views/user/UserPassword.vue')
         }
       ]
     }
