@@ -12,7 +12,6 @@ import {
 import avatar from '@/assets/default.png'
 import { useUserStore } from '@/stores'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
 const userStore = useUserStore()
 const router = useRouter()
 
@@ -27,7 +26,7 @@ const handleCommand = async (key) => {
       .then(async () => {
         ElMessage.success('退出成功')
         await router.push('/login')
-        userStore.setUser({})
+        userStore.setToken({})
         userStore.setUser({})
       })
       .catch(() => {})
@@ -94,12 +93,12 @@ const handleCommand = async (key) => {
     <el-container>
       <el-header>
         <div>
-          黑马程序员：<strong>{{ userStore.user.data.nickname || '' }}</strong>
+          黑马程序员：<strong>{{ userStore.user.nickname || '' }}</strong>
         </div>
         <el-dropdown placement="bottom-end" @command="handleCommand">
           <!-- 展示给用户，默认看到的 -->
           <span class="el-dropdown__box">
-            <el-avatar :src="userStore.user.data.user_pic || avatar" />
+            <el-avatar :src="userStore.user.user_pic || avatar" />
             <el-icon><CaretBottom /></el-icon>
           </span>
 

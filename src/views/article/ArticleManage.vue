@@ -66,11 +66,8 @@ const delArt = async (id) => {
   ElMessage.success('删除成功')
   getArticleList()
 }
-
-onMounted(() => {
-  getArticleList()
-  getCateList()
-})
+getArticleList()
+getCateList()
 </script>
 <template>
   <page-container title="文章管理">

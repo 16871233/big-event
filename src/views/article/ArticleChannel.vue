@@ -10,7 +10,7 @@ const getList = async () => {
   const res = await getArticleCate()
   categories.value = res.data.data
 }
-onMounted(() => getList())
+getList()
 const add = () => {
   dialog.value.open({})
 }

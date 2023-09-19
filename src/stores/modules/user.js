@@ -17,7 +17,7 @@ export const useUserStore = defineStore(
     }
     const getUser = async () => {
       const res = await GetApi()
-      user.value = res.data
+      user.value = res.data.data
     }
     const setUser = (newUser) => {
       user.value = newUser
