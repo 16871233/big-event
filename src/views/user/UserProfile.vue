@@ -4,6 +4,7 @@ import { UpdateInfoApi, GetApi } from '@/api/user'
 import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores'
 const userStore = useUserStore()
+const loading = ref(true)
 const form = ref({
   username: '',
   nickname: '',
@@ -21,11 +22,12 @@ const getForm = async () => {
 }
 onMounted(() => {
   getForm()
+  loading.value = false
 })
 </script>
 <template>
   <page-container title="用户信息">
-    <el-form :model="form" label-width="120px">
+    <el-form :model="form" label-width="120px" v-loading="loading">
       <el-form-item label="登录名称">
         <el-input v-model="form.username" disabled></el-input>
       </el-form-item>

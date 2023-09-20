@@ -16,13 +16,16 @@ const total = ref(10)
 const state = ref(['已发布', '草稿'])
 const pagenum = ref(1)
 const pagesize = ref(5)
+const loading = ref(true)
 
 const formatTime = (time) => {
   return dayjs(time).format('YYYY年MM月DD日')
 }
 const onChange = async (page) => {
+  loading.value = true
   pagenum.value = page
   await getArticleList()
+  loading.value = false
 }
 const getArticleList = async () => {
   const res = await getArticle({
@@ -66,8 +69,11 @@ const delArt = async (id) => {
   ElMessage.success('删除成功')
   getArticleList()
 }
-getArticleList()
-getCateList()
+onMounted(async () => {
+  await getArticleList()
+  await getCateList()
+  loading.value = false
+})
 </script>
 <template>
   <page-container title="文章管理">
@@ -92,7 +98,7 @@ getCateList()
       <el-button @click="reset">重置</el-button>
     </el-container>
     <el-container>
-      <el-table :data="articleList" border style="width: 100%">
+      <el-table :data="articleList" border style="width: 100%" v-loading="loading">
         <el-table-column prop="title" label="文章标题"></el-table-column>
         <el-table-column prop="cate_name" label="分类名称"></el-table-column>
         <el-table-column prop="pub_date" label="发布时间">

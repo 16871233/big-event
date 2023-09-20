@@ -5,7 +5,7 @@ import { Plus } from '@element-plus/icons-vue'
 import { useUserStore } from '@/stores'
 import { UpdateAvatarApi } from '@/api/user'
 const userStore = useUserStore()
-const imageUrl = ref(userStore.user.data.user_pic)
+const imageUrl = ref(userStore.user.user_pic)
 const onChange = (file) => {
   const reader = new FileReader()
   reader.readAsDataURL(file.raw)

@@ -34,6 +34,7 @@ module.exports = {
   },
   globals: {
     ElMessage: 'readonly',
-    ElMessageBox:'readonly'
+    ElMessageBox: 'readonly',
+    ElLoding: 'readonly'
   }
 }

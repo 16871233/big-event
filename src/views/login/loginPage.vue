@@ -4,6 +4,7 @@ import { User, Lock } from '@element-plus/icons-vue'
 import { RegisterApi, LoginApi } from '@/api/login'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/modules/user'
+import { ElMessage, ElLoading } from 'element-plus'
 const form = ref()
 const formModel = ref({
   username: '',
@@ -44,12 +45,14 @@ const register = async () => {
 const router = useRouter()
 const userStore = useUserStore()
 const login = async () => {
+  const loadingInstance = ElLoading.service({ fullscreen: true })
   await form.value.validate()
   const res = await LoginApi(formModel.value)
   await userStore.setToken(res.data.token)
   await userStore.getUser()
   ElMessage.success('登录成功')
   router.push('/')
+  loadingInstance.close()
 }
 watch(islogin, () => {
   formModel.value = {
@@ -65,10 +68,10 @@ watch(islogin, () => {
     <el-col :span="6" :offset="3" class="form"
       ><el-form ref="form" :model="formModel" :rules="rules" size="large" v-if="islogin">
         <el-form-item><h1>登录</h1></el-form-item>
-        <el-form-item prop="username">
+        <el-form-item prop="username" label="用户名">
           <el-input v-model="formModel.username" placeholder="Username" :prefix-icon="User" />
         </el-form-item>
-        <el-form-item prop="password">
+        <el-form-item prop="password" label="密码&nbsp&nbsp&nbsp">
           <el-input
             v-model="formModel.password"
             type="password"
@@ -85,10 +88,10 @@ watch(islogin, () => {
       </el-form>
       <el-form ref="form" :model="formModel" :rules="rules" size="large" v-else>
         <el-form-item><h1>注册</h1></el-form-item>
-        <el-form-item prop="username">
+        <el-form-item prop="username" label="用户名&nbsp&nbsp&nbsp&nbsp">
           <el-input v-model="formModel.username" placeholder="Username" :prefix-icon="User" />
         </el-form-item>
-        <el-form-item prop="password">
+        <el-form-item prop="password" label="密码&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp">
           <el-input
             v-model="formModel.password"
             type="password"
@@ -97,7 +100,7 @@ watch(islogin, () => {
             :prefix-icon="Lock"
           />
         </el-form-item>
-        <el-form-item prop="repassword">
+        <el-form-item prop="repassword" label="确认密码">
           <el-input
             v-model="formModel.repassword"
             type="password"

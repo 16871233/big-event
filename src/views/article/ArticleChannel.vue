@@ -1,14 +1,16 @@
 <script setup>
 import { getArticleCate, deleteArticleCate } from '@/api/article'
 import { ElMessage } from 'element-plus'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import ChannelEdit from './components/ChannelEdit.vue'
 import { InfoFilled } from '@element-plus/icons-vue'
 const dialog = ref()
 const categories = ref([])
+const loading = ref(true)
 const getList = async () => {
   const res = await getArticleCate()
   categories.value = res.data.data
+  loading.value = false
 }
 getList()
 const add = () => {
@@ -32,7 +34,7 @@ const onSuccess = () => {
       <el-button type="primary" @click="add">添加分类</el-button>
     </template>
     <div class="container">
-      <el-table :data="categories" border>
+      <el-table :data="categories" border v-loading="loading">
         <el-table-column type="index" label="序号"></el-table-column>
         <el-table-column prop="cate_name" label="分类名称"></el-table-column>
         <el-table-column prop="cate_alias" label="分类别名"></el-table-column>
